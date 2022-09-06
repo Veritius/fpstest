@@ -1,0 +1,9 @@
+[package]
+name = "fpstest"
+version = "0.0.1"
+edition = "2021"
+authors = ["Veritius <veritiusgaming@gmail.com>"]
+
+[dependencies]
+bevy = "0.8.1"
+bevy_rapier3d = { version = "0.16.2", features = ["debug-render"] }
