@@ -23,11 +23,11 @@ fn grab_mouse(
 ) {
     let window = windows.get_primary_mut().unwrap();
     if mouse.just_pressed(MouseButton::Left) {
-        window.set_cursor_visibility(false);
+        //window.set_cursor_visibility(false);
         window.set_cursor_lock_mode(true);
     }
     if key.just_pressed(KeyCode::Escape) {
-        window.set_cursor_visibility(true);
+        //window.set_cursor_visibility(true);
         window.set_cursor_lock_mode(false);
     }
 }
@@ -40,7 +40,7 @@ fn create_world(
     // floor
     commands.spawn()
     .insert(RigidBody::Fixed)
-    .insert(Collider::cuboid(100.0, 0.1, 100.0))
+    .insert(Collider::cuboid(50.0, 0.1, 50.0))
     .insert_bundle(TransformBundle::from(Transform::from_xyz(0.0, -10.0, 0.0)))
     .insert_bundle(PbrBundle {
         mesh: meshes.add(Mesh::from(shape::Plane { size: 100.0 })),

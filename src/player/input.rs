@@ -3,7 +3,8 @@ use bevy_rapier3d::prelude::*;
 
 use super::{PlayerBody, PlayerCamera};
 
-const SPEED: f32 = 500.0;
+const MOVE_SPEED: f32 = 500.0;
+const LOOK_SPEED: f32 = 500.0;
 
 pub fn move_player(
     mut commands: Commands,
@@ -32,24 +33,24 @@ pub fn move_player(
 
     for (entity, mut body, mut transform, mut impulse) in &mut player_bodies {
         for ev in mouse_events.iter() {
-            transform.rotate_z(ev.delta.x * 50.0 * delta);
+            transform.rotate_local_z(ev.delta.x * delta * LOOK_SPEED);
         }
         
         let move_delta = Vec3::new(
-            move_intent.x * delta * SPEED,
-            move_intent.y * delta * SPEED,
-            move_intent.z * delta * SPEED
+            move_intent.x * delta * MOVE_SPEED,
+            move_intent.y * delta * MOVE_SPEED,
+            move_intent.z * delta * MOVE_SPEED
         );
         impulse.impulse = move_delta;
 
         match player_cameras.get_mut(body.camera) {
             Ok(mut camera_query) => {
                 for ev in mouse_events.iter() {
-                    camera_query.2.rotate_local_y(ev.delta.y * 50.0 * delta);
+                    camera_query.2.rotate_local_y(ev.delta.y * delta * LOOK_SPEED);
                 }
             },
             Err(error) => {
-                error!("Player camera was invalid: {}", error);
+                error!("Player body {:?}'s camera {:?} is invalid: {}", entity, body.camera, error);
             },
         }
     }

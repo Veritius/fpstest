@@ -13,7 +13,7 @@ pub fn add_player(
     body.insert_bundle(TransformBundle::from(Transform::from_xyz(0.0, 6.0, 0.0)));
     body.insert(RigidBody::Dynamic);
     body.insert(Collider::capsule_y(1.0, 1.0));
-    body.insert(Velocity::default());
+    body.insert(ExternalImpulse::default());
 
     // Camera
     let camera = body.add_children(|builder| {
