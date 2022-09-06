@@ -19,15 +19,19 @@ pub fn move_player(
     let mut move_intent = Vec3::ZERO;
     if keyboard_input.pressed(KeyCode::W) {
         move_intent.z += 1.0;
+		println!("move up");
     }
     if keyboard_input.pressed(KeyCode::S) {
         move_intent.z -= 1.0;
+		println!("move down");
     }
     if keyboard_input.pressed(KeyCode::D) {
         move_intent.x += 1.0;
+		println!("move right");
     }
     if keyboard_input.pressed(KeyCode::A) {
         move_intent.x -= 1.0;
+		println!("move left");
     }
     move_intent = move_intent.normalize();
 
