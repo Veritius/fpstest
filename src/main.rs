@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_egui::EguiPlugin;
 use bevy_rapier3d::prelude::*;
 use player::*;
 
@@ -9,6 +10,7 @@ fn main() {
     app.add_plugins(DefaultPlugins);
     app.add_plugin(RapierPhysicsPlugin::<NoUserData>::default());
     app.add_plugin(RapierDebugRenderPlugin::default());
+    app.add_plugin(EguiPlugin);
     app.add_system(grab_mouse);
     app.add_startup_system(create_world);
     app.add_startup_system(add_player);
