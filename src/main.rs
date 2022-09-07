@@ -11,10 +11,9 @@ fn main() {
     app.add_plugin(RapierPhysicsPlugin::<NoUserData>::default());
     app.add_plugin(RapierDebugRenderPlugin::default());
     app.add_plugin(EguiPlugin);
+    app.add_plugin(PlayerCharacterPlugin);
     app.add_system(grab_mouse);
     app.add_startup_system(create_world);
-    app.add_startup_system(add_player);
-    app.add_system(player::input::move_player);
     app.run();
 }
 

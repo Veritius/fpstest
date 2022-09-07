@@ -1,7 +1,22 @@
 use bevy::prelude::*;
 use bevy_rapier3d::prelude::*;
 
-pub mod input;
+use self::systems::*;
+use self::components::*;
+
+pub mod components;
+pub mod systems;
+
+pub struct PlayerCharacterPlugin;
+
+impl Plugin for PlayerCharacterPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_startup_system(add_player);
+
+        app.add_system(player_character_input);
+        app.add_system(player_character_move);
+    }
+}
 
 pub fn add_player(
     mut commands: Commands
@@ -18,7 +33,7 @@ pub fn add_player(
     // Camera
     let camera = body.add_children(|builder| {
         let mut camera_cmds = builder.spawn();
-        camera_cmds.insert(PlayerCamera { body: body_id });
+        camera_cmds.insert(PlayerCamera);
         camera_cmds.insert_bundle(Camera3dBundle {
             transform: Transform::from_xyz(0.0, 6.0, 0.0),
             ..default()
@@ -28,17 +43,16 @@ pub fn add_player(
     });
 
     body.add_child(camera);
-    body.insert(PlayerBody { camera });
-}
+    body.insert(PlayerBody {
+        is_running: false,
+        walk_speed: 10.0,
+        run_speed: 14.0,
+        h_turn_speed: 4.0,
+        v_turn_speed: 2.0,
 
-/// A component defining the player body
-#[derive(Component)]
-pub struct PlayerBody {
-    pub camera: Entity
-}
-
-/// A component defining the player camera
-#[derive(Component)]
-pub struct PlayerCamera {
-    pub body: Entity
+        current_move_intent: Vec3::ZERO,
+        current_look_intent: Vec2::ZERO,
+        current_look_horizontal: 0.0,
+        current_look_vertical: 90.0,
+    });
 }
