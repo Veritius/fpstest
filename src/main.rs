@@ -13,6 +13,7 @@ fn main() {
     app.add_startup_system(create_world);
     app.add_startup_system(add_player);
     app.add_system(player::input::move_player);
+	app.insert_resource(ClearColor(Color::rgb(0.1, 0.1, 0.1)))
     app.run();
 }
 
