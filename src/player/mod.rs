@@ -28,7 +28,7 @@ pub fn add_player(
     body.insert_bundle(TransformBundle::from(Transform::from_xyz(0.0, 6.0, 0.0)));
     body.insert(RigidBody::Dynamic);
     body.insert(Collider::capsule_y(1.0, 1.0));
-    body.insert(ExternalImpulse::default());
+    body.insert(Velocity::default());
 
     // Camera
     let camera = body.add_children(|builder| {
@@ -49,6 +49,9 @@ pub fn add_player(
         run_speed: 14.0,
         h_turn_speed: 4.0,
         v_turn_speed: 2.0,
+
+        move_speed_modifier: 1.0,
+        turn_speed_modifier: 1.0,
 
         current_move_intent: Vec3::ZERO,
         current_look_intent: Vec2::ZERO,

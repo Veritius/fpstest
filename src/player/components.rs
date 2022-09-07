@@ -10,6 +10,9 @@ pub struct PlayerBody {
     pub h_turn_speed: f32,
     pub v_turn_speed: f32,
 
+    pub move_speed_modifier: f32,
+    pub turn_speed_modifier: f32,
+
     pub current_look_horizontal: f32,
     pub current_look_vertical: f32,
     pub current_move_intent: Vec3,
