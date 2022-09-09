@@ -60,14 +60,4 @@ fn create_world(
         transform: Transform::from_xyz(0.0, 10.0, 0.0),
         ..default()
     });
-
-    // ext. camera
-    commands.spawn_bundle(Camera3dBundle {
-        transform: Transform::from_xyz(10.0, 10.0, 10.0).looking_at(Vec3::new(0.0, 0.0, 0.0), Vec3::Y),
-        camera: Camera {
-            priority: 1,
-            ..default()
-        },
-        ..default()
-    });
 }

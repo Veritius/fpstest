@@ -37,20 +37,10 @@ pub fn add_player(
         let mut camera_cmds = builder.spawn();
         camera_cmds.insert(PlayerCamera);
         camera_cmds.insert_bundle(SpatialBundle::default());
-        camera_cmds.insert_bundle(PbrBundle {
-            mesh: meshes.add(Mesh::from(shape::Cube {
-                size: 1.0
-            })),
-            material: materials.add(StandardMaterial {
-                base_color: Color::ORANGE_RED,
-                ..default()
-            }),
+        camera_cmds.insert_bundle(Camera3dBundle {
+            transform: Transform::from_xyz(0.0, 1.5, 0.0),
             ..default()
         });
-        //camera_cmds.insert_bundle(Camera3dBundle {
-        //    transform: Transform::from_xyz(0.0, 1.5, 0.0),
-        //    ..default()
-        //});
 
         camera_cmds.id()
     });
@@ -60,8 +50,8 @@ pub fn add_player(
         is_running: false,
         walk_speed: 10.0,
         run_speed: 14.0,
-        h_turn_speed: 4.0,
-        v_turn_speed: 2.0,
+        h_turn_speed: 9.0,
+        v_turn_speed: 2.5,
 
         move_speed_modifier: 1.0,
         turn_speed_modifier: 1.0,
@@ -69,6 +59,6 @@ pub fn add_player(
         current_move_intent: Vec3::ZERO,
         current_look_intent: Vec2::ZERO,
         current_look_horizontal: 0.0,
-        current_look_vertical: 90.0,
+        current_look_vertical: 0.0,
     });
 }

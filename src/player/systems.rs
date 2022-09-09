@@ -8,7 +8,7 @@ use super::components::{PlayerBody, PlayerCamera};
 
 // Camera vertical look restrictions
 // (so you can't snap your own spine)
-const CAMERA_LIMIT: f32 = 0.05235988;
+const CAMERA_LIMIT: f32 = 0.2617994;
 
 // Sets movement information
 pub fn player_character_input(
@@ -33,7 +33,7 @@ pub fn player_character_input(
     }
 
     // Normalise move intent so you can't go faster by holding A and W
-    move_intent = move_intent.normalize();
+    move_intent = move_intent.normalize_or_zero();
 
     // Get the look intent from mouse movement
     let mut look_intent = Vec2::ZERO;
@@ -71,9 +71,9 @@ pub fn player_character_move(
     cam_transform.rotation = Quat::from_euler(EulerRot::XYZ, body_comp.current_look_vertical, 0.0, 0.0);
 
     body_impulse.impulse += Vec3::new(
-        body_comp.current_move_intent.x * 10.0,
+        body_comp.current_move_intent.x * body_comp.move_speed_modifier * 100.0,
         0.0,
-        body_comp.current_move_intent.y * 10.0
+        body_comp.current_move_intent.y * body_comp.move_speed_modifier * 100.0
     );
     
     egui::Window::new("Debug").show(uicontext.ctx_mut(), |ui| {
