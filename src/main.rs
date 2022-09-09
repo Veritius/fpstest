@@ -42,10 +42,11 @@ fn create_world(
     commands.spawn()
     .insert(RigidBody::Fixed)
     .insert(Collider::cuboid(50.0, 0.1, 50.0))
-    .insert_bundle(TransformBundle::from(Transform::from_xyz(0.0, -10.0, 0.0)))
+    .insert_bundle(SpatialBundle::default())
     .insert_bundle(PbrBundle {
         mesh: meshes.add(Mesh::from(shape::Plane { size: 100.0 })),
         material: materials.add(Color::rgb(0.8, 0.0, 0.8).into()),
+        transform: Transform::from_xyz(0.0, 0.0, 0.0),
         ..default()
     });
 
@@ -57,6 +58,16 @@ fn create_world(
             ..default()
         },
         transform: Transform::from_xyz(0.0, 10.0, 0.0),
+        ..default()
+    });
+
+    // ext. camera
+    commands.spawn_bundle(Camera3dBundle {
+        transform: Transform::from_xyz(10.0, 10.0, 10.0).looking_at(Vec3::new(0.0, 0.0, 0.0), Vec3::Y),
+        camera: Camera {
+            priority: 1,
+            ..default()
+        },
         ..default()
     });
 }

@@ -19,25 +19,38 @@ impl Plugin for PlayerCharacterPlugin {
 }
 
 pub fn add_player(
-    mut commands: Commands
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>
 ) {
     // Body
     let mut body = commands.spawn();
     let body_id = body.id();
 
-    body.insert_bundle(TransformBundle::from(Transform::from_xyz(0.0, 6.0, 0.0)));
+    body.insert_bundle(SpatialBundle::from(Transform::from_xyz(0.0, 6.0, 0.0)));
     body.insert(RigidBody::Dynamic);
     body.insert(Collider::capsule_y(1.0, 1.0));
-    body.insert(Velocity::default());
+    body.insert(ExternalImpulse::default());
 
     // Camera
     let camera = body.add_children(|builder| {
         let mut camera_cmds = builder.spawn();
         camera_cmds.insert(PlayerCamera);
-        camera_cmds.insert_bundle(Camera3dBundle {
-            transform: Transform::from_xyz(0.0, 6.0, 0.0),
+        camera_cmds.insert_bundle(SpatialBundle::default());
+        camera_cmds.insert_bundle(PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Cube {
+                size: 1.0
+            })),
+            material: materials.add(StandardMaterial {
+                base_color: Color::ORANGE_RED,
+                ..default()
+            }),
             ..default()
         });
+        //camera_cmds.insert_bundle(Camera3dBundle {
+        //    transform: Transform::from_xyz(0.0, 1.5, 0.0),
+        //    ..default()
+        //});
 
         camera_cmds.id()
     });
