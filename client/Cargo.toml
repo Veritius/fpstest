@@ -1,0 +1,10 @@
+[package]
+name = "fpstest-client"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fpstest-shared = { path = "../shared" }
+
+bevy = "0.9"
+bevy_egui = "0.17.1"
