@@ -1,7 +1,6 @@
-[workspace]
-resolver = "2"
-members = [
-    "client",
-    "server",
-    "shared"
-]
+[package]
+name = "fpstest"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
